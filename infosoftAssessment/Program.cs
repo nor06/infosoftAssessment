@@ -22,23 +22,23 @@ namespace infosoftAssessment
                 Console.Write("Select a Library (enter customer, video, reports, rental, or exit to quit): ");
                 String home = Console.ReadLine().ToLower();
 
-                if (home == "customer")
+                if (home.ToLower() == "customer")
                 {
                     customerLibrary();
                 }
-                else if (home == "video")
+                else if (home.ToLower() == "video")
                 {
                     videoLibrary();
                 }
-                else if (home == "reports")
+                else if (home.ToLower() == "reports")
                 {
                     reports();
                 }
-                else if (home == "rental")
+                else if (home.ToLower() == "rental")
                 {
                     rentalModule();
                 }
-                else if (home == "exit")
+                else if (home.ToLower() == "exit")
                 {
                     exit = true; 
                     Console.WriteLine("Thank you for using Bogsy Video Store! Goodbye.");
@@ -312,8 +312,8 @@ namespace infosoftAssessment
                 try
                 {
                     con.Open();
-                    Console.WriteLine("\nCustomer Reports   |   Video Reports\n");
-                    Console.Write("Select a report type (enter customer or video only): ");
+                    Console.WriteLine("\nCustomer Reports   |   Video Reports   |   Rental Reports\n");
+                    Console.Write("Select a report type (enter customer, video or rental only): ");
                     string report = Console.ReadLine();
 
                     if (report.ToLower() == "customer")
@@ -343,6 +343,20 @@ namespace infosoftAssessment
                             while (reader.Read())
                             {
                                 Console.WriteLine($"{reader["videoId"]} | {reader["title"]} | {reader["category"]} | {reader["available"]} | {reader["rented"]}");
+                            }
+                        }
+                    }
+                    else if (report.ToLower() == "rental")
+                    {
+                        string selectQuery = "SELECT rentalId, id, videoId, rentalDate, returnDate, actualReturnDate, rentalFee, lateFee FROM rental";
+                        using (MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(selectQuery, con))
+                        using (MySql.Data.MySqlClient.MySqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            Console.WriteLine("\nCurrent Rentals\n");
+                            Console.WriteLine("Rental ID | Customer ID | Video ID | Rental Date | Return Date | Actual Return Date | Rental Fee | Late Fee");
+                            while (reader.Read())
+                            {
+                                Console.WriteLine($"{reader["rentalId"]} | {reader["id"]} | {reader["videoId"]} | {reader["rentalDate"]} | {reader["returnDate"]} | {reader["actualReturnDate"]} | {reader["rentalFee"]} | {reader["lateFee"]}");
                             }
                         }
                     }
