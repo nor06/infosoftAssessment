@@ -138,21 +138,21 @@ namespace infosoftAssessment
                         int id = int.Parse(Console.ReadLine());
                         Console.Write("Enter new name: ");
                         string newName = Console.ReadLine();
-                        Console.Write("Enter new category: ");
-                        string newCategory = Console.ReadLine();
-                        Console.Write("Enter new video title: ");
-                        string newVideoTitle = Console.ReadLine();
+                        Console.Write("Enter new email: ");
+                        string newEmail = Console.ReadLine();
+                        Console.Write("Enter new phone number: ");
+                        string newPhoneNumber = Console.ReadLine();
 
                       
-                        string updateQuery = "UPDATE customer SET name = @name, category = @category, videoTitle = @videoTitle WHERE id = @id";
+                        string updateQuery = "UPDATE customer SET name = @name, email = @email, phoneNumber = @phoneNumber WHERE id = @id";
 
                         using (MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(updateQuery, con))
                         {
                            
                             cmd.Parameters.AddWithValue("@id", id);
                             cmd.Parameters.AddWithValue("@name", newName);
-                            cmd.Parameters.AddWithValue("@category", newCategory);
-                            cmd.Parameters.AddWithValue("@videoTitle", newVideoTitle);
+                            cmd.Parameters.AddWithValue("@email", newEmail);
+                            cmd.Parameters.AddWithValue("@phoneNumber", newPhoneNumber);
 
                             int rowsAffected = cmd.ExecuteNonQuery();
 
